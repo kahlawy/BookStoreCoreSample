@@ -35,17 +35,20 @@ namespace BookStoreCoreSample.Controllers
         // GET: BookController/Create
         public ActionResult Create()
         {
-            //var book = BookRepository;
+            //var books = BookRepository.List();
+
+            //return View(books);
             return View();
         }
 
         // POST: BookController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Book book)
         {
             try
             {
+                BookRepository.Add(book);
                 return RedirectToAction(nameof(Index));
             }
             catch
