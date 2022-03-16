@@ -1,21 +1,21 @@
-﻿@model BookStoreCoreSample.Models.Book
+﻿@model BookStoreCoreSample.ViewModel.BookAuthorViewModel
 
 @{
-    ViewData["Title"] = "Create Book Details";
+    ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
-<h4>Book</h4>
+<h4>BookAuthorViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+                <label asp-for="BookID" class="control-label"></label>
+                <input asp-for="BookID" class="form-control" />
+                <span asp-validation-for="BookID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -24,8 +24,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
+
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuthorID" class="control-label"></label>
+                <select asp-for="AuthorID" class="form-control" /> 
+                <span asp-validation-for="AuthorID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

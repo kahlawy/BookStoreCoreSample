@@ -1,5 +1,6 @@
 ﻿using BookStoreCoreSample.Models;
 using BookStoreCoreSample.Models.Repositories;
+using BookStoreCoreSample.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,10 +13,12 @@ namespace BookStoreCoreSample.Controllers
     public class BookController : Controller
     {
         public IBookStoreRepository<Book> BookRepository { get; }
+        public IBookStoreRepository<Author> AuthorRepository { get; }
 
-        public BookController(IBookStoreRepository<Book> bookRepository)
+        public BookController(IBookStoreRepository<Book> bookRepository , IBookStoreRepository<Author> authorRepository)
         {
             BookRepository = bookRepository;
+            AuthorRepository = authorRepository;
         }
         // GET: BookController
         public ActionResult Index()
@@ -35,8 +38,11 @@ namespace BookStoreCoreSample.Controllers
         // GET: BookController/Create
         public ActionResult Create()
         {
-            
-            return View();
+            var Model = new BookAuthorViewModel
+            {
+                Authors = AuthorRepository.List().ToList()
+            };
+            return View(Model);
         }
 
         // POST: BookController/Create
