@@ -1,10 +1,10 @@
-﻿@model IEnumerable<BookStoreCoreSample.Models.Book>
+﻿@model IEnumerable<BookStoreCoreSample.Models.Author>
 
 @{
-    ViewData["Title"] = "Books Information";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Book Inforamation</h1>
+<h1>Authors Information</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,10 +16,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th></th>
         </tr>
@@ -31,14 +28,11 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>

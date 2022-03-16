@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BookStoreCoreSample.Models;
+using BookStoreCoreSample.Models.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +11,25 @@ namespace BookStoreCoreSample.Controllers
 {
     public class AuthorController : Controller
     {
+        public IBookStoreRepository<Author> AuthorRepository { get; }
+
         // GET: AuthorController
+
+        public AuthorController(IBookStoreRepository<Author> authorRepository)
+        {
+            AuthorRepository = authorRepository;
+        }
         public ActionResult Index()
         {
-            return View();
+            var authors = AuthorRepository.List();
+            return View(authors);
         }
 
         // GET: AuthorController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var author = AuthorRepository.Find(id);
+            return View(author);
         }
 
         // GET: AuthorController/Create
@@ -30,10 +41,11 @@ namespace BookStoreCoreSample.Controllers
         // POST: AuthorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Author author)
         {
             try
             {
+                AuthorRepository.Add(author);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -45,16 +57,18 @@ namespace BookStoreCoreSample.Controllers
         // GET: AuthorController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var author = AuthorRepository.Find(id);
+            return View(author);
         }
 
         // POST: AuthorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id,Author    author)
         {
             try
             {
+                AuthorRepository.Update(id, author);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -66,7 +80,8 @@ namespace BookStoreCoreSample.Controllers
         // GET: AuthorController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var author = AuthorRepository.Find(id);
+            return View(author);
         }
 
         // POST: AuthorController/Delete/5
@@ -76,6 +91,7 @@ namespace BookStoreCoreSample.Controllers
         {
             try
             {
+                AuthorRepository.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

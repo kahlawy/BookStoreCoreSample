@@ -34,6 +34,28 @@ namespace BookStoreCoreSample
 
             app.UseMvcWithDefaultRoute();
 
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller}/{action}",
+                    defaults: new { action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Book", action = "Index" });
+
+
+
+                endpoints.MapControllerRoute(
+                    name: "api",
+                    pattern: "{controller}/{id?}");
+            });
+
+
             // app.UseRouting();
             //app.UseEndpoints(endpoints =>
             //{

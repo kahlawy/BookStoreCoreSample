@@ -35,9 +35,7 @@ namespace BookStoreCoreSample.Controllers
         // GET: BookController/Create
         public ActionResult Create()
         {
-            //var books = BookRepository.List();
-
-            //return View(books);
+            
             return View();
         }
 
@@ -60,16 +58,20 @@ namespace BookStoreCoreSample.Controllers
         // GET: BookController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            var book = BookRepository.Find(id);
+            return View(book);
+           
         }
 
         // POST: BookController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id,Book book)
         {
             try
             {
+                BookRepository.Update(id, book);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,17 +83,20 @@ namespace BookStoreCoreSample.Controllers
         // GET: BookController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var book = BookRepository.Find(id);
+            return View(book);
+            //return View();
         }
 
         // POST: BookController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Book book)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                 BookRepository.Delete(id);
+                 return RedirectToAction(nameof(Index));
             }
             catch
             {
